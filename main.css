@@ -1,0 +1,30 @@
+/*Card Styling*/
+.product {
+	width: 400px;
+	border: 2px solid slategray;
+}
+
+.image img {
+	max-width: 100%;
+	border-top: 1;
+	border-bottom: 0;
+}
+
+.description > * {
+	text-align: center; 
+	margin: 0;
+}
+
+.description {
+	padding: 2%;
+}
+
+.description h6{
+	font-size: 2em;
+}
+
+.title {
+	text-align: center;
+	text-transform: uppercase;
+	font-family: 'Lemonada', cursive;
+}
