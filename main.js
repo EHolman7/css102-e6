@@ -1,15 +1,24 @@
-var allProducts = [];
+// No More Var - let, const
+// Fat arrow functions
+// Object literal value shorthand notation
+// String template literals
 
-var product1 = {
+const allProducts = [];
+
+const product1 = {
   name: "Mop Attire",
   imagePath: "./images/mopAttire.jpg",
   imageAlt: "Product: Mop Attire",
+
   description: "This is a really good description of our product. It really sells it. It's the best.",
+
   price: 3000,
   soldOut: false
 };
 
-var product2 = {
+product1.soldOut = true;
+
+const product2 = {
   name: "Taco Suit",
   imagePath: "./images/tacoSuit.jpg",
   imageAlt: "Product: Taco Suit",
@@ -18,7 +27,7 @@ var product2 = {
   soldOut: false
 };
 
-var product3 = {
+const product3 = {
   name: "Neck Decoration",
   imagePath: "./images/neckDecoration.jpg",
   imageAlt: "Product: Neck Decoration",
@@ -27,7 +36,7 @@ var product3 = {
   soldOut: false
 };
 
-var product4 = {
+const product4 = {
   name: "Head Ornament",
   imagePath: "./images/headOrnament.jpg",
   imageAlt: "Product: Head Ornament",
@@ -36,8 +45,17 @@ var product4 = {
   soldOut: true
 };
 
-var product5 = {
+const product5 = {
   name: "Boob Hat",
+  imagePath: "./images/boobHat.jpg",
+  imageAlt: "Product: Boob Hat",
+  description: "This is a really good description of our product. It really sells it. It's the best.",
+  price: 36,
+  soldOut: true
+};
+
+const product6 = {
+  name: "Not Boob Hat",
   imagePath: "./images/boobHat.jpg",
   imageAlt: "Product: Boob Hat",
   description: "This is a really good description of our product. It really sells it. It's the best.",
@@ -51,13 +69,31 @@ allProducts.push(product3);
 allProducts.push(product4);
 allProducts.push(product5);
 
+const addNewProduct = (name, imagePath, imageAlt, description, price, soldOut) => {
+  var newProduct = {name, imagePath, imageAlt, description, price, soldOut};
+  allProducts.push(newProduct);
+}
+
+addNewProduct("Butt Cream", "https://upload.wikimedia.org/wikipedia/en/e/e8/Boudreauxs_Butt_Paste.jpg", "Butt Cream picture", "An American brand of skin cream that started out as a remedy for diaper rash.", 4.99, true)
+
 console.log("All my weird baby products: ", allProducts);
 
-var productContainer = document.getElementById("product-container");
+const productContainer = document.getElementById("product-container"); //could use let too
+
+allProducts.push(product6);
+
+const addNewProduct = (name, imagePath, imageAlt, description, price, soldOut, userRating) => {
+  const newProduct = {name, imagePath, imageAlt, description, price, soldOut, userRating};
+  allProducts.push(newProduct);
+}
+
+addNewProduct("Butt Paste", "https://upload.wikimedia.org/wikipedia/en/e/e8/Boudreauxs_Butt_Paste.jpg", "Here is a picture of butt cream.", "lorem oh well", 4.99, true, "5 Stars");
 
 
-function buildDomString(product){
-  var domString = "";
+const productContainer = document.getElementById("product-container");
+
+const buildDomString = (product) => {
+  let domString = "";
 
   domString +=  '<section class="product">';
     domString +=    '<div class="title child">';
@@ -79,27 +115,55 @@ function buildDomString(product){
     return domString;
 }
 
-function printProductArrayToDom(productArray){
-  for (var i = 0; i < productArray.length; i ++) {
-    var currentProduct = productArray[i];
-    var productDomString = buildDomString(currentProduct)
+const printProductArrayToDom = (productArray) => {
+  for (let i = 0; i < productArray.length; i ++) {
+    const currentProduct = productArray[i];
+    const productDomString = buildDomString(currentProduct)
     productContainer.innerHTML += productDomString; 
+
+  domString +=      '<section class="product">';
+  domString +=      '<div class="title child">';
+  domString +=         '<h2>' + product.name + '</h2>';
+  domString +=      '</div>';
+  domString +=      '<div class="image child">';
+  domString +=        '<img src="'+ product.imagePath +'" alt="' + product.imageAlt + '">';
+  domString +=      '</div>';
+  domString +=      '<div class="description child">';
+  domString +=        '<p>' +  product.description +'</p>';
+  domString +=        '<h6>$' + product.price +'</h6>';
+  domString +=      '</div>';
+  if (product.soldOut) {
+    domString += '<div class="sold-out child">';
+    domString +=    '<img src="./images/soldOut.png" alt="Sold Out">';
+    domString += '</div>';
+  }
+  domString +=      '</section>';
+  return domString;
+}
+
+const printProductArrayToDom = (productArray) => {
+  for (let i = 0; i < productArray.length; i++) {
+    const currentProduct = productArray[i];
+    const productDomString = buildDomString(currentProduct);
+    productContainer.innerHTML += productDomString;
+
   }
 }
 
-
-
 printProductArrayToDom(allProducts);
 
-var selectedCard;
+let selectedCard;
 
-document.getElementById('product-container').addEventListener('click', function(event){
+
+document.getElementById('product-container').addEventListener('click', (event) => {
   //console.log(event.target);
+
   changeBorder(event);
   printSelectedDescription();
 })
 
-function changeBorder(event){
+
+const changeBorder = (event) => {
   if (event.target.classList.contains('child')){
     selectedCard = event.target.parentNode;
   } else if (event.target.parentNode.parentNode.classList.contains('product')){
@@ -111,9 +175,25 @@ function changeBorder(event){
 selectedCard.classList.add('border-funsies');
 }
 
-function printSelectedDescription() {
+const printSelectedDescription = () => {
   //console.log(selectedCard);
-  var description = selectedCard.childNodes[2].childNodes[0].innerHTML;
+
+
+const changeBorder = (event) => {
+  if (event.target.classList.contains("child")){
+    selectedCard = event.target.parentNode;
+  } else if (event.target.parentNode.parentNode.classList.contains("product")){
+    selectedCard = event.target.parentNode.parentNode;
+  } else if (event.target.classList.contains("product")) {
+    selectedCard = event.target;
+  }
+
+  selectedCard.classList.add("border-funsies");
+}
+
+const printSelectedDescription = () => {
+
+  const description = selectedCard.childNodes[2].childNodes[0].innerHTML;
   console.log(description);
 }
 
